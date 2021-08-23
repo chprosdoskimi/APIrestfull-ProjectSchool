@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from '../models/User';
 
 class UserController {
   async store(req, res) {
@@ -15,17 +15,17 @@ class UserController {
     }
   }
 
-  //index
+  // index
   async index(req, res) {
     try {
-      const users = await User.findAll({ attributes: ["id", "name", "email"] });
+      const users = await User.findAll({ attributes: ['id', 'name', 'email'] });
       return res.status(200).json(users);
     } catch (e) {
       return res.json(null);
     }
   }
 
-  //show
+  // show
   async show(req, res) {
     try {
       const user = await User.findByPk(req.params.id);
@@ -37,13 +37,14 @@ class UserController {
       return res.json(null);
     }
   }
-  //update
+
+  // update
   async update(req, res) {
     try {
       const user = await User.findByPk(req.userId);
 
       if (!user) {
-        return res.status(400).json({ errors: ["User does not exists"] });
+        return res.status(400).json({ errors: ['User does not exists'] });
       }
       const newData = await user.update(req.body);
 
@@ -55,17 +56,17 @@ class UserController {
     }
   }
 
-  //delete
+  // delete
   async delete(req, res) {
     try {
       const user = await User.findByPk(req.userId);
 
       if (!user) {
-        return res.status(400).json({ errors: ["User does not exists"] });
+        return res.status(400).json({ errors: ['User does not exists'] });
       }
       await user.destroy();
 
-      return res.json("User deleted");
+      return res.json('User deleted');
     } catch (e) {
       return res
         .status(400)

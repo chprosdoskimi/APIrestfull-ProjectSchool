@@ -1,33 +1,34 @@
-import Student from "../models/Student";
-import Photo from "../models/Photo";
+import Student from '../models/Student';
+import Photo from '../models/Photo';
 
 class StudentController {
   async index(req, res) {
     try {
       const students = await Student.findAll({
         attributes: [
-          "id",
-          "name",
-          "surname",
-          "email",
-          "age",
-          "weight",
-          "height",
+          'id',
+          'name',
+          'surname',
+          'email',
+          'age',
+          'weight',
+          'height',
         ],
         order: [
-          ["id", "DESC"], //ASC
-          [Photo, "id", "DESC"],
+          ['id', 'DESC'], // ASC
+          [Photo, 'id', 'DESC'],
         ],
         include: {
           model: Photo,
-          attributes: ["id", "student_id", "filename", "url"],
+          attributes: ['id', 'student_id', 'filename', 'url'],
         },
       });
-      res.status(200).json(students);
+      return res.status(200).json(students);
     } catch (e) {
       return res.status(400).json(null);
     }
   }
+
   async store(req, res) {
     try {
       const newStudent = await Student.create(req.body);
@@ -43,32 +44,32 @@ class StudentController {
     try {
       if (!req.params.id) {
         return res.status(400).json({
-          errors: ["Missing Id"],
+          errors: ['Missing Id'],
         });
       }
 
       const student = await Student.findByPk(req.params.id, {
         attributes: [
-          "id",
-          "name",
-          "surname",
-          "email",
-          "age",
-          "weight",
-          "height",
+          'id',
+          'name',
+          'surname',
+          'email',
+          'age',
+          'weight',
+          'height',
         ],
         order: [
-          ["id", "DESC"], //ASC
-          [Photo, "id", "DESC"],
+          ['id', 'DESC'], // ASC
+          [Photo, 'id', 'DESC'],
         ],
         include: {
           model: Photo,
-          attributes: ["id", "student_id", "filename", "url"],
+          attributes: ['id', 'student_id', 'filename', 'url'],
         },
       });
       if (!student) {
         return res.status(400).json({
-          errors: ["Student does not exists"],
+          errors: ['Student does not exists'],
         });
       }
 
@@ -84,13 +85,13 @@ class StudentController {
     try {
       if (!req.params.id) {
         return res.status(400).json({
-          errors: ["Id invalid"],
+          errors: ['Id invalid'],
         });
       }
       const student = await Student.findByPk(req.params.id);
       if (!student) {
         return res.status(400).json({
-          errors: ["Student does not exists"],
+          errors: ['Student does not exists'],
         });
       }
       console.log(student);
@@ -108,18 +109,18 @@ class StudentController {
     try {
       if (!req.params.id) {
         return res.status(400).json({
-          errors: ["Missing Id"],
+          errors: ['Missing Id'],
         });
       }
       const student = await Student.findByPk(req.params.id);
       if (!student) {
         return res.status(400).json({
-          errors: ["Student does not exists"],
+          errors: ['Student does not exists'],
         });
       }
       await student.destroy();
 
-      return res.status(200).json("Deleted Student");
+      return res.status(200).json('Deleted Student');
     } catch (e) {
       return res
         .status(400)

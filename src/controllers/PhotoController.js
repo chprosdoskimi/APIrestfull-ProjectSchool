@@ -1,9 +1,9 @@
-import Photo from "../models/Photo";
+import multer from 'multer';
+import Photo from '../models/Photo';
 
-import multer from "multer";
-import multerconfig from "../config/multer";
+import multerconfig from '../config/multer';
 
-const upload = multer(multerconfig).single("photo");
+const upload = multer(multerconfig).single('photo');
 
 class PhotoController {
   store(req, res) {
@@ -24,7 +24,11 @@ class PhotoController {
         });
 
         return res.status(200).json(photo);
-      } catch (e) {}
+      } catch (e) {
+        return res
+          .status(400)
+          .json({ errors: e.errors.map((err) => err.message) });
+      }
     });
   }
 }

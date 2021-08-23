@@ -1,4 +1,4 @@
-import Sequelize, { Model } from "sequelize";
+import Sequelize, { Model } from 'sequelize';
 
 export default class Student extends Model {
   static init(sequelize) {
@@ -6,31 +6,31 @@ export default class Student extends Model {
       {
         name: {
           type: Sequelize.STRING,
-          defaultValue: "",
+          defaultValue: '',
           validate: {
             len: {
               args: [3, 50],
-              msg: "Name must be between 3 and 50 characters",
+              msg: 'Name must be between 3 and 50 characters',
             },
           },
         },
         surname: {
           type: Sequelize.STRING,
-          defaultValue: "",
+          defaultValue: '',
           validate: {
             len: {
               args: [3, 50],
-              msg: "Surname must be between 3 and 50 characters",
+              msg: 'Surname must be between 3 and 50 characters',
             },
           },
         },
 
         email: {
           type: Sequelize.STRING,
-          defaultValue: "",
+          defaultValue: '',
           validate: {
             isEmail: {
-              msg: "Email Invalid",
+              msg: 'Email Invalid',
             },
           },
         },
@@ -39,7 +39,7 @@ export default class Student extends Model {
           defaultValue: 0,
           validate: {
             isInt: {
-              msg: "Age must be integer",
+              msg: 'Age must be integer',
             },
           },
         },
@@ -47,7 +47,7 @@ export default class Student extends Model {
           type: Sequelize.FLOAT,
           validate: {
             isFloat: {
-              msg: "Weight must be integer or float",
+              msg: 'Weight must be integer or float',
             },
           },
         },
@@ -55,7 +55,7 @@ export default class Student extends Model {
           type: Sequelize.FLOAT,
           validate: {
             isFloat: {
-              msg: "Height must be integer or float",
+              msg: 'Height must be integer or float',
             },
           },
         },
@@ -66,7 +66,8 @@ export default class Student extends Model {
     );
     return this;
   }
+
   static associate(models) {
-    this.hasMany(models.Photo, { foreignKey: "student_id" });
+    this.hasMany(models.Photo, { foreignKey: 'student_id' });
   }
 }
